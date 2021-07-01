@@ -18,13 +18,16 @@ struct ContentView: View {
                 CityText(cityName: "San Diego, CA")
                 MainWeatherInfo(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill",
                                 temp: "76")
-                HStack(spacing: 15) {
-                    WeatherDay(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temp: "74")
-                    WeatherDay(dayOfWeek: "WED", imageName: "cloud.bolt.rain.fill", temp: "74")
-                    WeatherDay(dayOfWeek: "THURS", imageName: "cloud.sun.bolt.fill", temp: "74")
-                    WeatherDay(dayOfWeek: "FRI", imageName: "cloud.sleet.fill", temp: "74")
-                    WeatherDay(dayOfWeek: "SAT", imageName: "cloud.drizzle.fill", temp: "74")
-                }
+                ScrollView(.horizontal) {
+                    HStack(spacing: 15) {
+                        WeatherDay(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temp: "74")
+                        WeatherDay(dayOfWeek: "WED", imageName: "cloud.bolt.rain.fill", temp: "74")
+                        WeatherDay(dayOfWeek: "THURS", imageName: "cloud.sun.bolt.fill", temp: "74")
+                        WeatherDay(dayOfWeek: "FRI", imageName: "cloud.sleet.fill", temp: "74")
+                        WeatherDay(dayOfWeek: "SAT", imageName: "cloud.drizzle.fill", temp: "74")
+                    }
+                }.frame(width: 310, alignment: .center)
+                
                 Spacer()
                 
                 Button {
