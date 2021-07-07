@@ -15,7 +15,7 @@ struct ConvertDate {
     let date: Date
     var hour: String
     
-    init(time: Int64) {
+    init(time: Int) {
         let formatter = DateFormatter()
         formatter.dateFormat = "hh a" // hour hour, a = "am"/"pm"
         

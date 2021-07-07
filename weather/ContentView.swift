@@ -20,7 +20,13 @@ struct ContentView: View {
                                 temp: "76")
                 ScrollView(.horizontal) {
                     List(hours) { hour in
-                        WeatherDay(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temp: "74")
+                        let converter = ConvertDate(time: hour.EpochDateTime)
+                        WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hour.Temperature.Value))
+                    }.onAppear() {
+                        print("View did appear")
+                        API().loadData { (hours) in
+                            self.hours = hours
+                        }
                     }
                     /*HStack(spacing: 15) {
                         WeatherDay(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temp: "74")
@@ -41,10 +47,6 @@ struct ContentView: View {
                                   backgroundColor: .white)
                 }
                 Spacer()
-            }
-        }.onAppear() {
-            API().loadData { (hours) in
-                self.hours = hours
             }
         }
     }
@@ -146,9 +148,9 @@ class API: ObservableObject {
             let hours = try! JSONDecoder().decode([HourlyWeather].self, from: data!)
             print(hours)
             var converter = ConvertDate(time: 1625083200)
-            print(converter.hourFormatter)
+            print(converter.hour)
             DispatchQueue.main.async {
-                completion(self.hours)
+                completion(hours)
             }
         }.resume()
     }
