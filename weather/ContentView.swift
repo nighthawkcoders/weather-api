@@ -145,7 +145,7 @@ class API: ObservableObject {
         URLSession.shared.dataTask(with: url) { data, response, error in
             let hours = try! JSONDecoder().decode([HourlyWeather].self, from: data!)
             print(hours)
-            var converter = ConvertDate()
+            var converter = ConvertDate(time: 1625083200)
             print(converter.hourFormatter)
             DispatchQueue.main.async {
                 completion(self.hours)
