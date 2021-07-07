@@ -18,15 +18,10 @@ struct ContentView: View {
                 CityText(cityName: "San Diego, CA")
                 MainWeatherInfo(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill",
                                 temp: "76")
-                ScrollView(.horizontal) {
+                /*ScrollView(.horizontal) {
                     List(hours) { hour in
                         let converter = ConvertDate(time: hour.EpochDateTime)
                         WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hour.Temperature.Value))
-                    }.onAppear() {
-                        print("View did appear")
-                        API().loadData { (hours) in
-                            self.hours = hours
-                        }
                     }
                     /*HStack(spacing: 15) {
                         WeatherDay(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temp: "74")
@@ -35,8 +30,23 @@ struct ContentView: View {
                         WeatherDay(dayOfWeek: "FRI", imageName: "cloud.sleet.fill", temp: "74")
                         WeatherDay(dayOfWeek: "SAT", imageName: "cloud.drizzle.fill", temp: "74")
                     }*/
-                }.frame(width: 310, alignment: .center)
-                
+                }.frame(width: 310, alignment: .center).onAppear() {
+                    print("View did appear")
+                    API().loadData { (hours) in
+                        self.hours = hours
+                    }
+                } */
+                List(hours) { hour in
+                    let converter = ConvertDate(time: hour.EpochDateTime)
+                    Text("\(converter.hour) \(hour.Temperature.Value)")
+                    //WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hour.Temperature.Value))
+                }
+                .onAppear(perform: {
+                    print("View did appear")
+                    API().loadData { (hours) in
+                        self.hours = hours
+                    }
+                })
                 Spacer()
                 
                 Button {
