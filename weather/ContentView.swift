@@ -19,13 +19,16 @@ struct ContentView: View {
                 MainWeatherInfo(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill",
                                 temp: "76")
                 ScrollView(.horizontal) {
-                    HStack(spacing: 15) {
+                    List(hours) { hour in
+                        WeatherDay(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temp: "74")
+                    }
+                    /*HStack(spacing: 15) {
                         WeatherDay(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temp: "74")
                         WeatherDay(dayOfWeek: "WED", imageName: "cloud.bolt.rain.fill", temp: "74")
                         WeatherDay(dayOfWeek: "THURS", imageName: "cloud.sun.bolt.fill", temp: "74")
                         WeatherDay(dayOfWeek: "FRI", imageName: "cloud.sleet.fill", temp: "74")
                         WeatherDay(dayOfWeek: "SAT", imageName: "cloud.drizzle.fill", temp: "74")
-                    }
+                    }*/
                 }.frame(width: 310, alignment: .center)
                 
                 Spacer()
@@ -142,6 +145,8 @@ class API: ObservableObject {
         URLSession.shared.dataTask(with: url) { data, response, error in
             let hours = try! JSONDecoder().decode([HourlyWeather].self, from: data!)
             print(hours)
+            var converter = ConvertDate()
+            print(converter.hourFormatter)
             DispatchQueue.main.async {
                 completion(self.hours)
             }
