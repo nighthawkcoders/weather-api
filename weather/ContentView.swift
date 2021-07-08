@@ -17,7 +17,7 @@ struct ContentView: View {
             VStack {
                 CityText(cityName: "San Diego, CA")
                 MainWeatherInfo(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill",
-                                temp: "76")
+                                temp: "00")
                 /*ScrollView(.horizontal) {
                     List(hours, id: \.self) { hour in
                         let converter = ConvertDate(time: hour.EpochDateTime)
@@ -40,7 +40,8 @@ struct ContentView: View {
                     HStack(spacing: 12) {
                         ForEach(0..<hours.count, id: \.self) { i in
                             let converter = ConvertDate(time: hours[i].EpochDateTime)
-                            WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hours[i].Temperature.Value))
+                            let icon = weatherIcons()
+                            WeatherDay(dayOfWeek: converter.hour, imageName: icon.weatherIcons[hours[i].IconPhrase] ?? "questionmark.circle", temp: String(hours[i].Temperature.Value))
                         }
                     }.onAppear(perform: {
                         print("View did appear")

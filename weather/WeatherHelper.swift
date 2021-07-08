@@ -16,6 +16,45 @@ enum WeatherIcon: String {
     case mostlyCloudy = "Mostly Cloudly"
 }
 
+class weatherIcons {
+    var weatherIcons: [String : String]
+    
+    // API return icon identifers match reference to the SF Symbols library
+    init() {
+        weatherIcons = [
+            "Sunny": "sun.max.fill",
+            "Mostly Sunny": "cloud.sun.fill",
+            "Partly Sunny": "cloud.sun.fill",
+            "Intermittent Clouds": "cloud.sun.fill",
+            "Hazy Sunshine": "sun.haze.fill",
+            "Mostly Cloudly": "cloud.sun.fill",
+            "Cloudy": "cloud.fill",
+            "Dreary (Overcast)": "smoke.fill",
+            "Fog": "cloud.fog.fill",
+            "Showers": "cloud.rain.fill",
+            "Mostly Cloudy w/ Showers": "cloud.sun.rain.fill",
+            "Partly Sunny w/ Showers": "cloud.sun.rain.fill",
+            "T-Storms": "cloud.bolt.rain.fill",
+            "Mostly Cloudy w/ T-Storms": "cloud.sun.bolt.fill",
+            "Partly Sunny w/ T-Storms": "cloud.sun.bolt.fill",
+            "Rain": "cloud.heavyrain.fill",
+            "Flurries": "wind.snow",
+            "Mostly Cloudy w/ Flurries": "wind.snow",
+            "Partly Sunny w/ Flurries": "snowflake",
+            "Mostly Cloudy w/ Snow": "cloud.snow.fill",
+            "Ice": "cloud.hail.fill",
+            "Sleet": "cloud.sleet.fill",
+            "Freezing Rain": "cloud.hail.fill",
+            "Rain and Snow": "cloud.sleet.fill",
+            "Clear": "moon.stars.fill",
+            "Mostly clear": "cloud.moon.fill",
+            "Partly Cloudy": "cloud.moon.fill",
+            //"Intermittent Clouds": "cloud.moon.fill",
+            "Hazy Moonlight": "smoke.fill"
+    ]
+    }
+}
+
 struct ConvertDate {
     let date: Date
     var hour: String
