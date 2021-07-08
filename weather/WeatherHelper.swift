@@ -27,7 +27,7 @@ class weatherIcons {
             "Partly sunny": "cloud.sun.fill",
             "Intermittent clouds": "cloud.sun.fill",
             "Hazy sunshine": "sun.haze.fill",
-            "Mostly cloudly": "cloud.sun.fill",
+            "Mostly cloudy": "cloud.sun.fill",
             "Cloudy": "cloud.fill",
             "Dreary (Overcast)": "smoke.fill",
             "Fog": "cloud.fog.fill",
