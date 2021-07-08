@@ -149,8 +149,8 @@ struct HourlyWeather: Codable, Identifiable {
     var Link: String
     
 }
-
-struct Temperature: Codable { // extra struct to conform to Codable (in essence this struct is a tuple- see 00-003 in JSON)
+// extra struct to conform to Codable (in essence this struct is a tuple- see 00-003 in JSON)
+struct Temperature: Codable {
     var Value: Int
     var Unit: String
     var UnitType: Int
@@ -159,8 +159,9 @@ struct Temperature: Codable { // extra struct to conform to Codable (in essence 
 class API: ObservableObject {
     @Published var hours = [HourlyWeather]()
     
-    func loadData(completion:@escaping ([HourlyWeather]) -> ()) { // San Diego: 38497_PC
+    func loadData(completion:@escaping ([HourlyWeather]) -> ()) {
         guard let url = URL(string: "https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/38497_PC?apikey=zTo2UcAjr8v33iTfrHinyQnBYh7u8253") else {
+            // San Diego: 38497_PC
             print("Invalid url...")
             return
         }
