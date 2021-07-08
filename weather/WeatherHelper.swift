@@ -7,8 +7,13 @@
 
 import Foundation
 
-enum WeatherIcon {
-    // case 
+enum WeatherIcon: String {
+    case sunny = "Sunny"
+    case mostlySunny = "Mostly Sunny"
+    case partlySunny = "Partly Sunny"
+    case intermittentClouds = "Intermittent Clouds"
+    case hazySunshine = "Hazy Sunshine"
+    case mostlyCloudy = "Mostly Cloudly"
 }
 
 struct ConvertDate {
@@ -17,7 +22,7 @@ struct ConvertDate {
     
     init(time: Int) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh a" // hour hour, a = "am"/"pm"
+        formatter.dateFormat = "h a" // hour hour, a = "am"/"pm"
         
         let epochTime = TimeInterval(time)
         date = Date(timeIntervalSince1970: epochTime)   // "Apr 16, 2015, 2:40 AM"

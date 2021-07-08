@@ -19,7 +19,7 @@ struct ContentView: View {
                 MainWeatherInfo(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill",
                                 temp: "76")
                 /*ScrollView(.horizontal) {
-                    List(hours) { hour in
+                    List(hours, id: \.self) { hour in
                         let converter = ConvertDate(time: hour.EpochDateTime)
                         WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hour.Temperature.Value))
                     }
@@ -35,18 +35,27 @@ struct ContentView: View {
                     API().loadData { (hours) in
                         self.hours = hours
                     }
-                } */
-                List(hours) { hour in
+                }*/
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(0..<hours.count, id: \.self) { i in
+                            let converter = ConvertDate(time: hours[i].EpochDateTime)
+                            WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hours[i].Temperature.Value))
+                        }
+                    }.onAppear(perform: {
+                        print("View did appear")
+                        API().loadData { (hours) in
+                            self.hours = hours
+                        }
+                    })
+                }.frame(width: 350,alignment: .center)
+                
+                /*List(hours) { hour in
                     let converter = ConvertDate(time: hour.EpochDateTime)
-                    Text("\(converter.hour) \(hour.Temperature.Value)")
-                    //WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hour.Temperature.Value))
-                }
-                .onAppear(perform: {
-                    print("View did appear")
-                    API().loadData { (hours) in
-                        self.hours = hours
-                    }
-                })
+                    //Text("\(converter.hour) \(hour.Temperature.Value)")
+                    WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hour.Temperature.Value))
+                }*/
+                
                 Spacer()
                 
                 Button {
