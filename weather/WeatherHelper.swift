@@ -48,7 +48,7 @@ class weatherIcons {
             "Rain and Snow": "cloud.sleet.fill",
             "Clear": "moon.stars.fill",
             "Mostly clear": "cloud.moon.fill",
-            "Partly Cloudy": "cloud.moon.fill",
+            "Partly cloudy": "cloud.moon.fill",
             //"Intermittent Clouds": "cloud.moon.fill",
             "Hazy Moonlight": "smoke.fill"
     ]
