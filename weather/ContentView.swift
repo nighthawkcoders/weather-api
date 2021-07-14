@@ -12,62 +12,51 @@ struct ContentView: View {
     @State var hours = [HourlyWeather]()
     
     var body: some View {
-        ZStack {
-            Background(isNight: $isNight)
-            VStack {
-                CityText(cityName: "San Diego, CA")
-                MainWeatherInfo(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill",
-                                temp: "00")
-                /*ScrollView(.horizontal) {
-                    List(hours, id: \.self) { hour in
-                        let converter = ConvertDate(time: hour.EpochDateTime)
-                        WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hour.Temperature.Value))
-                    }
-                    /*HStack(spacing: 15) {
-                        WeatherDay(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temp: "74")
-                        WeatherDay(dayOfWeek: "WED", imageName: "cloud.bolt.rain.fill", temp: "74")
-                        WeatherDay(dayOfWeek: "THURS", imageName: "cloud.sun.bolt.fill", temp: "74")
-                        WeatherDay(dayOfWeek: "FRI", imageName: "cloud.sleet.fill", temp: "74")
-                        WeatherDay(dayOfWeek: "SAT", imageName: "cloud.drizzle.fill", temp: "74")
-                    }*/
-                }.frame(width: 310, alignment: .center).onAppear() {
-                    print("View did appear")
-                    API().loadData { (hours) in
-                        self.hours = hours
-                    }
-                }*/
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        ForEach(0..<hours.count, id: \.self) { i in
-                            let converter = ConvertDate(time: hours[i].EpochDateTime)
-                            let icon = weatherIcons()
-                            WeatherDay(dayOfWeek: converter.hour, imageName: icon.weatherIcons[hours[i].IconPhrase] ?? "questionmark.circle", temp: String(hours[i].Temperature.Value))
+        NavigationView {
+            ZStack {
+                        Background(isNight: $isNight)
+                        VStack {
+                            CityText(cityName: "San Diego, CA")
+                            MainWeatherInfo(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill",
+                                            temp: "00")
+                            
+                            NavigationLink(destination: SearchView(text: .constant(""))) {
+                                Text("search cities")
+                            }
+                                                        
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 12) {
+                                    ForEach(0..<hours.count, id: \.self) { i in
+                                        let converter = ConvertDate(time: hours[i].EpochDateTime)
+                                        let icon = weatherIcons()
+                                        WeatherDay(dayOfWeek: converter.hour, imageName: icon.weatherIcons[hours[i].IconPhrase] ?? "questionmark.circle", temp: String(hours[i].Temperature.Value))
+                                    }
+                                }.onAppear(perform: {
+                                    print("View did appear")
+                                    API().loadData { (hours) in
+                                        self.hours = hours
+                                    }
+                                })
+                            }.frame(width: 350,alignment: .center)
+                            
+                            /*List(hours) { hour in
+                                let converter = ConvertDate(time: hour.EpochDateTime)
+                                //Text("\(converter.hour) \(hour.Temperature.Value)")
+                                WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hour.Temperature.Value))
+                            }*/
+                            
+                            Spacer()
+                            
+                            
+                            Button {
+                                isNight.toggle() // action
+                            } label: { // styling
+                                WeatherButton(text: "Change Time of Day",
+                                              textColor: .blue,
+                                              backgroundColor: .white)
+                            }
+                            Spacer()
                         }
-                    }.onAppear(perform: {
-                        print("View did appear")
-                        API().loadData { (hours) in
-                            self.hours = hours
-                        }
-                    })
-                }.frame(width: 350,alignment: .center)
-                
-                /*List(hours) { hour in
-                    let converter = ConvertDate(time: hour.EpochDateTime)
-                    //Text("\(converter.hour) \(hour.Temperature.Value)")
-                    WeatherDay(dayOfWeek: converter.hour, imageName: "cloud.sun.fill", temp: String(hour.Temperature.Value))
-                }*/
-                
-                Spacer()
-                
-                Button {
-                    isNight.toggle() // action
-                } label: { // styling
-                    WeatherButton(text: "Change Time of Day",
-                                  textColor: .blue,
-                                  backgroundColor: .white)
-                }
-                Spacer()
-            }
         }
     }
 }
@@ -196,3 +185,4 @@ class API: ObservableObject {
    }
  */
 
+}
