@@ -20,7 +20,7 @@ struct ContentView: View {
                             MainWeatherInfo(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill",
                                             temp: "00")
                             
-                            NavigationLink(destination: SearchView(text: .constant(""))) {
+                            NavigationLink(destination: SearchView(text: "")) {
                                 Text("search cities")
                             }
                                                         
